@@ -195,6 +195,7 @@ SanitizeVars() {
   [ -z "$variables" ] && { printf '%s\n' "Nothing to sanitize."; return 0; }
 
   # Extract the variable names from the matches.
+  set -x
   local variable_names
   variable_names="$(printf '%s\n' "$variables" | grep -o -E '[a-zA-Z0-9_]+')"
 
