@@ -160,6 +160,19 @@ jobs:
                 }
               ]
             }
+      - run:
+          name: Write a message
+          command: |
+            echo "This is a message" > /tmp/msg
+      - slack/notify:
+          step_name: "user test"
+          event: always
+          debug: true
+          custom: |
+            {
+                "type": "mrkdwn",
+                "text": "$(cat /tmp/msg)"
+            }
 
 workflows:
   test-deploy:
