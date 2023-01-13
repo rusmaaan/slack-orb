@@ -16,6 +16,8 @@ BuildMessageBody() {
         # shellcheck disable=SC2016
         CUSTOM_BODY_MODIFIED=$(echo "$CUSTOM_BODY_MODIFIED" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed 's/`/\\`/g')
         T2="$(eval printf '%s' \""$CUSTOM_BODY_MODIFIED"\")"
+        echo "Using custom template."
+        echo "$T2"
     else
         # shellcheck disable=SC2154
         if [ -n "${SLACK_PARAM_TEMPLATE:-}" ]; then TEMPLATE="\$$SLACK_PARAM_TEMPLATE"
@@ -195,7 +197,6 @@ SanitizeVars() {
   [ -z "$variables" ] && { printf '%s\n' "Nothing to sanitize."; return 0; }
 
   # Extract the variable names from the matches.
-  set -x
   local variable_names
   variable_names="$(printf '%s\n' "$variables" | grep -o -E '[a-zA-Z0-9_]+')"
 
