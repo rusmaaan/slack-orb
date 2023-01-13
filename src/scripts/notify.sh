@@ -85,6 +85,7 @@ ModifyCustomTemplate() {
 }
 
 InstallJq() {
+    set -x
     echo "Checking For JQ + CURL"
     if command -v curl >/dev/null 2>&1 && ! command -v jq >/dev/null 2>&1; then
         uname -a | grep Darwin > /dev/null 2>&1 && JQ_VERSION=jq-osx-amd64 || JQ_VERSION=jq-linux32
@@ -97,6 +98,7 @@ InstallJq() {
         command -v jq >/dev/null 2>&1 || { echo >&2 "SLACK ORB ERROR: JQ is required. Please install"; exit 1; }
         return $?
     fi
+    set +x
 }
 
 FilterBy() {
