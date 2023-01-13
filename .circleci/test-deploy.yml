@@ -16,29 +16,6 @@ jobs:
     executor: <<parameters.runner>>
     steps:
       - checkout
-      - slack/notify:
-          debug: true
-          step_name: "Custom template with group mention"
-          event: always
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Current Job: $CIRCLE_JOB"
-                  }
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "This test will @ a normal user, a user ID, and normal group name: <@U8C9ETTUG>, @orbs, @gabriel"
-                  }
-                }
-              ]
-            }
       - run: printf '%s\n' "Hello There!" > /tmp/msg
       - slack/notify:
           debug: true
