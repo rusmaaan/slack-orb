@@ -16,8 +16,6 @@ BuildMessageBody() {
         # shellcheck disable=SC2016
         CUSTOM_BODY_MODIFIED=$(echo "$CUSTOM_BODY_MODIFIED" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g' | sed 's/`/\\`/g')
         T2="$(eval printf '%s' \""$CUSTOM_BODY_MODIFIED"\")"
-        echo "Using custom template."
-        echo "$T2"
     else
         # shellcheck disable=SC2154
         if [ -n "${SLACK_PARAM_TEMPLATE:-}" ]; then TEMPLATE="\$$SLACK_PARAM_TEMPLATE"
@@ -84,6 +82,8 @@ ModifyCustomTemplate() {
         # In case the text field was set manually.
         CUSTOM_BODY_MODIFIED=$(echo "$SLACK_PARAM_CUSTOM" | jq '.')
     fi
+
+    echo "Custom Template: $CUSTOM_BODY_MODIFIED"
 }
 
 InstallJq() {
