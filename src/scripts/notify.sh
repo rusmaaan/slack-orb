@@ -185,7 +185,6 @@ SetupLogs() {
 
 # $1: Template with environment variables to be sanitized.
 SanitizeVars() {
-  set -x
   [ -z "$1" ] && { printf '%s\n' "Missing argument."; return 1; }
   local template="$1"
 
@@ -228,7 +227,6 @@ SanitizeVars() {
     # shellcheck disable=SC3045 # This is working on Alpine.
     printf -v "$var" "%s" "$sanitized_value"
   done
-  set +x
   return 0;
 }
 
